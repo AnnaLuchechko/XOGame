@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0818D9AD256703A200F818F9 /* ComputerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0818D9AC256703A200F818F9 /* ComputerState.swift */; };
 		BAF43B7E2555BC8E0088034A /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF43B7D2555BC8E0088034A /* GameState.swift */; };
 		BAF43B812555BD100088034A /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF43B802555BD100088034A /* PlayerState.swift */; };
 		BAF43B842555C0FC0088034A /* GameOverState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF43B832555C0FC0088034A /* GameOverState.swift */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0818D9AC256703A200F818F9 /* ComputerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerState.swift; sourceTree = "<group>"; };
 		BAF43B7D2555BC8E0088034A /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		BAF43B802555BD100088034A /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
 		BAF43B832555C0FC0088034A /* GameOverState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverState.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 				BAF43B7D2555BC8E0088034A /* GameState.swift */,
 				BAF43B802555BD100088034A /* PlayerState.swift */,
 				BAF43B832555C0FC0088034A /* GameOverState.swift */,
+				0818D9AC256703A200F818F9 /* ComputerState.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0818D9AD256703A200F818F9 /* ComputerState.swift in Sources */,
 				F874E4732224621100364CAE /* GameViewController.swift in Sources */,
 				BAF43B962555D4180088034A /* LogInvoker.swift in Sources */,
 				F874E4DD2225C25D00364CAE /* GameboardPosition.swift in Sources */,
