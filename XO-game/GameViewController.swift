@@ -10,6 +10,8 @@ import UIKit
 
 class GameViewController: UIViewController {
     
+    var gameType: GameType = .vsPlayer
+    
     private let gameBoard = Gameboard()
     private lazy var referee = Referee(gameboard: gameBoard)
     private var currentState: GameState! {
