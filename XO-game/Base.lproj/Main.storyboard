@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FlK-xv-cci">
-                                <rect key="frame" x="150.5" y="621" width="74" height="26"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FlK-xv-cci">
+                                <rect key="frame" x="237" y="621" width="74" height="26"/>
                                 <inset key="contentEdgeInsets" minX="12" minY="4" maxX="12" maxY="4"/>
                                 <state key="normal" title="Restart"/>
                                 <connections>
@@ -61,15 +61,26 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q4j-ZZ-X9f">
+                                <rect key="frame" x="81" y="621" width="63" height="26"/>
+                                <inset key="contentEdgeInsets" minX="12" minY="4" maxX="12" maxY="4"/>
+                                <state key="normal" title="Menu"/>
+                                <connections>
+                                    <action selector="restartButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6rT-jl-rsO"/>
+                                    <action selector="showStartMenu:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lc9-ch-C7Q"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="q4j-ZZ-X9f" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="81" id="2DD-AB-IjJ"/>
                             <constraint firstItem="FlK-xv-cci" firstAttribute="top" secondItem="LYG-3D-cJV" secondAttribute="bottom" constant="22" id="7Cg-Od-ODs"/>
                             <constraint firstItem="5M8-Sh-pRf" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="AYe-Ek-i4a"/>
                             <constraint firstItem="FlK-xv-cci" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Frx-qz-lKB"/>
                             <constraint firstItem="LYG-3D-cJV" firstAttribute="top" secondItem="5M8-Sh-pRf" secondAttribute="bottom" constant="8" id="GaF-PX-RbP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="FlK-xv-cci" secondAttribute="bottom" constant="20" id="XVv-6S-n3b"/>
+                            <constraint firstItem="q4j-ZZ-X9f" firstAttribute="baseline" secondItem="FlK-xv-cci" secondAttribute="baseline" id="Z1u-Ga-4L2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LSW-na-Of7" secondAttribute="trailing" constant="44" id="att-TZ-kx7"/>
                             <constraint firstItem="lyE-7i-9c4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="44" id="eA7-42-PYI"/>
                             <constraint firstItem="5M8-Sh-pRf" firstAttribute="top" secondItem="lyE-7i-9c4" secondAttribute="bottom" constant="20" id="gzs-I8-cAh"/>
@@ -96,7 +107,7 @@
         <!--Start View Controller-->
         <scene sceneID="cVu-en-zxU">
             <objects>
-                <viewController id="IPz-5Y-zqe" customClass="StartViewController" customModule="XO_game" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="startViewController" id="IPz-5Y-zqe" customClass="StartViewController" customModule="XO_game" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OtG-jw-eTJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

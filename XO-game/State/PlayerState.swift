@@ -46,17 +46,7 @@ class PlayerState: GameState {
         guard let gameBoardView = gameBoardView, gameBoardView.canPlaceMarkView(at: position) else {
             return
         }
-        //Before Prototype
-        
-//        let markView: MarkView
-//
-//        switch player {
-//        case .first:
-//            markView = XView()
-//        case .second:
-//            markView = OView()
-//        }
-//
+
         gameBoard?.setPlayer(player, at: position)
         gameBoardView.placeMarkView(markViewPrototype.copy(), at: position)
         isMoveCompleted = true

@@ -39,8 +39,6 @@ class GameViewController: UIViewController {
             if self.currentState.isMoveCompleted {
                 self.setNextState()
             }
-            
-//            self.gameboardView.placeMarkView(XView(), at: position)
         }
     }
     
@@ -62,12 +60,27 @@ class GameViewController: UIViewController {
             return
         }
         
-        if let playerInputState = currentState as? PlayerState {
-            let player = playerInputState.player.next
-            currentState = PlayerState(player: playerInputState.player.next, gameViewController: self,
-                                       gameBoard: gameBoard, gameBoardView: gameboardView,
-                                       markViewPrototype: player.markViewPrototype)
+        if(gameType == .vsPlayer) {
+            if let playerInputState = currentState as? PlayerState {
+                let player = playerInputState.player.next
+                currentState = PlayerState(player: playerInputState.player.next, gameViewController: self,
+                                           gameBoard: gameBoard, gameBoardView: gameboardView,
+                                           markViewPrototype: player.markViewPrototype)
+            }
+        } else {
+            if(counter % 2 == 0) {
+                let player = Player.first
+                currentState = PlayerState(player: player, gameViewController: self,
+                                           gameBoard: gameBoard, gameBoardView: gameboardView,
+                                           markViewPrototype: player.markViewPrototype)
+            } else {
+                let player = Player.second
+                currentState = ComputerState(player: player, gameViewController: self,
+                                           gameBoard: gameBoard, gameBoardView: gameboardView,
+                                           markViewPrototype: player.markViewPrototype)
+            }
         }
+        
     }
     
     @IBAction func restartButtonTapped(_ sender: UIButton) {
@@ -77,7 +90,13 @@ class GameViewController: UIViewController {
         gameBoard.clear()
         setFirstState()
         counter = 0
-        
     }
+    
+    @IBAction func showStartMenu(_ sender: UIButton) {
+        guard let startViewController = storyboard?.instantiateViewController(withIdentifier: "startViewController") as? StartViewController else { fatalError() }
+        
+        show(startViewController, sender: nil)
+    }
+        
 }
 
