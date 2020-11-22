@@ -32,14 +32,16 @@ class ComputerState: GameState {
         case .first:
             gameViewController?.firstPlayerTurnLabel.isHidden = false
             gameViewController?.secondPlayerTurnLabel.isHidden = true
+
         case .second:
             gameViewController?.firstPlayerTurnLabel.isHidden = true
             gameViewController?.secondPlayerTurnLabel.isHidden = false
         }
-        
         gameViewController?.winnerLabel.isHidden = true
         
-        placeCumputerMark()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { // Change `2.0` to the desired number of seconds.
+            self.placeCumputerMark()
+        }
     }
     
     func addMark(at position: GameboardPosition) {
@@ -51,6 +53,7 @@ class ComputerState: GameState {
 
         gameBoard?.setPlayer(player, at: position)
         gameBoardView.placeMarkView(markViewPrototype.copy(), at: position)
+        
         isMoveCompleted = true
     }
     
@@ -71,7 +74,6 @@ class ComputerState: GameState {
             randomPosition = generateRandomPosition()
             canPlace = gameBoardView.canPlaceMarkView(at: randomPosition)
         }
-        
         gameBoardView.onSelectPosition?(randomPosition)
     }
     

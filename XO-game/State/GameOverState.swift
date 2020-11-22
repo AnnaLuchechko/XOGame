@@ -13,7 +13,7 @@ class GameOverState: GameState {
     
     public let winner: Player?
     
-    private weak var gameViewController: GameViewController?
+    weak var gameViewController: GameViewController?
     
     init(winner: Player?, gameViewController: GameViewController) {
         self.winner = winner
@@ -41,9 +41,15 @@ class GameOverState: GameState {
     func getWinnerName(from: Player) -> String {
         switch winner {
         case .first:
-            return "1st player"
+            if gameViewController?.gameType == GameType.vsPlayer {
+                return "1st player"
+            }
+            return "Player"
         case .second:
-            return "2nd player"
+            if gameViewController?.gameType == GameType.vsPlayer {
+                return "2st player"
+            }
+            return "Computer"
         case .none:
             return "there is no winner"
         }

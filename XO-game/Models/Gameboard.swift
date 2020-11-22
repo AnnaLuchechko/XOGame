@@ -9,13 +9,9 @@
 import Foundation
 
 public final class Gameboard {
-    
-    // MARK: - Properties
-    
+        
     private lazy var positions: [[Player?]] = initialPositions()
-    
-    // MARK: - public
-    
+        
     public func setPlayer(_ player: Player, at position: GameboardPosition) {
         positions[position.column][position.row] = player
     }
@@ -37,9 +33,7 @@ public final class Gameboard {
         let (column, row) = (position.column, position.row)
         return positions[column][row] == player
     }
-    
-    // MARK: - Private
-    
+        
     private func initialPositions() -> [[Player?]] {
         var positions: [[Player?]] = []
         for _ in 0 ..< GameboardSize.columns {

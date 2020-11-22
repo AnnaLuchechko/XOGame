@@ -35,6 +35,7 @@ class GameViewController: UIViewController {
         gameboardView.onSelectPosition = { [weak self] position in
             guard let self = self else { return }
             self.counter += 1
+            
             self.currentState.addMark(at: position)
             if self.currentState.isMoveCompleted {
                 self.setNextState()
@@ -43,6 +44,14 @@ class GameViewController: UIViewController {
     }
     
     private func setFirstState() {
+        if gameType == .vsPlayer {
+            firstPlayerTurnLabel.text = "1st player"
+            secondPlayerTurnLabel.text = "2st player"
+        } else {
+            firstPlayerTurnLabel.text = "Player"
+            secondPlayerTurnLabel.text = "Computer"
+        }
+        
         let player = Player.first
         currentState = PlayerState(player: player, gameViewController: self,
                                    gameBoard: gameBoard, gameBoardView: gameboardView,
@@ -73,11 +82,12 @@ class GameViewController: UIViewController {
                 currentState = PlayerState(player: player, gameViewController: self,
                                            gameBoard: gameBoard, gameBoardView: gameboardView,
                                            markViewPrototype: player.markViewPrototype)
+                
             } else {
                 let player = Player.second
                 currentState = ComputerState(player: player, gameViewController: self,
-                                           gameBoard: gameBoard, gameBoardView: gameboardView,
-                                           markViewPrototype: player.markViewPrototype)
+                                                  gameBoard: gameBoard, gameBoardView: gameboardView,
+                                                  markViewPrototype: player.markViewPrototype)
             }
         }
         
