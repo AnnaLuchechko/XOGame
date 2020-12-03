@@ -1,15 +1,16 @@
 //
-//  ComputerState.swift
+//  Player5MovesState.swift
 //  XO-game
 //
-//  Created by Anna Luchechko on 19.11.2020.
+//  Created by Anna Luchechko on 26.11.2020.
 //  Copyright © 2020 plasmon. All rights reserved.
 //
 
 import Foundation
 
-class ComputerState: GameState {
+class Player5MovesState: GameState {
     var isMoveCompleted: Bool = false
+    private var moveCounter: Int = 0
     
     public let player: Player
     private weak var gameViewController: GameViewController?
@@ -32,49 +33,31 @@ class ComputerState: GameState {
         case .first:
             gameViewController?.firstPlayerTurnLabel.isHidden = false
             gameViewController?.secondPlayerTurnLabel.isHidden = true
-
         case .second:
             gameViewController?.firstPlayerTurnLabel.isHidden = true
             gameViewController?.secondPlayerTurnLabel.isHidden = false
         }
-        gameViewController?.winnerLabel.isHidden = true
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            self.placeCumputerMark()
-        }
+        gameViewController?.winnerLabel.isHidden = true
     }
     
     func addMark(at position: GameboardPosition) {
         Log(action: .playerSetMark(player: player, position: position))
         
-        guard let gameBoardView = gameBoardView, gameBoardView.canPlaceMarkView(at: position) else {
+        guard let gameBoard = gameBoard, let gameBoardView = gameBoardView, gameBoardView.canPlaceMarkView(at: position) else {
             return
         }
 
-        gameBoard?.setPlayer(player, at: position)
+        gameBoard.setPlayer(player, at: position)
         gameBoardView.placeMarkView(markViewPrototype.copy(), at: position)
         
-        isMoveCompleted = true
-    }
-    
-    func generateRandomPosition() -> GameboardPosition {
-        let randomRow = Int.random(in: 0...2)
-        let randomColumn = Int.random(in: 0...2)
+        PlayerInvoker.shared.addPlayerCommand(command: PlayerCommand(player: player, gameBoardPosition: position, gameBoardView: gameBoardView, gameBoard: gameBoard))
         
-        return GameboardPosition(column: randomColumn, row: randomRow)
-    }
-    
-    func placeCumputerMark() {
-        var canPlace = false
-        var randomPosition: GameboardPosition = generateRandomPosition()
+        moveCounter += 1
         
-        guard let gameBoardView = gameBoardView else { return }
-        
-        while !canPlace {
-            randomPosition = generateRandomPosition()
-            canPlace = gameBoardView.canPlaceMarkView(at: randomPosition)
+        if(moveCounter >= 5) {
+            isMoveCompleted = true
         }
-        gameBoardView.onSelectPosition?(randomPosition)
+        
     }
-    
 }

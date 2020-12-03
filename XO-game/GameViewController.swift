@@ -34,60 +34,89 @@ class GameViewController: UIViewController {
         
         gameboardView.onSelectPosition = { [weak self] position in
             guard let self = self else { return }
-            self.counter += 1
             
             self.currentState.addMark(at: position)
             if self.currentState.isMoveCompleted {
+                self.counter += 1
                 self.setNextState()
             }
         }
     }
     
     private func setFirstState() {
+        let player = Player.first
+        
         if gameType == .vsPlayer {
             firstPlayerTurnLabel.text = "1st player"
-            secondPlayerTurnLabel.text = "2st player"
+            secondPlayerTurnLabel.text = "2nd player"
+            
+            currentState = PlayerState(player: player, gameViewController: self,
+                                       gameBoard: gameBoard, gameBoardView: gameboardView,
+                                       markViewPrototype: player.markViewPrototype)
+        } else if gameType == .vsPlayer5Moves {
+            firstPlayerTurnLabel.text = "1st player"
+            secondPlayerTurnLabel.text = "2nd player"
+            
+            currentState = Player5MovesState(player: player, gameViewController: self,
+                                       gameBoard: gameBoard, gameBoardView: gameboardView,
+                                       markViewPrototype: player.markViewPrototype)
         } else {
             firstPlayerTurnLabel.text = "Player"
             secondPlayerTurnLabel.text = "Computer"
+            
+            currentState = PlayerState(player: player, gameViewController: self,
+                                       gameBoard: gameBoard, gameBoardView: gameboardView,
+                                       markViewPrototype: player.markViewPrototype)
         }
-        
-        let player = Player.first
-        currentState = PlayerState(player: player, gameViewController: self,
-                                   gameBoard: gameBoard, gameBoardView: gameboardView,
-                                   markViewPrototype: player.markViewPrototype)
+
     }
     
     private func setNextState() {
-        if let winner = referee.determineWinner() {
-            currentState = GameOverState(winner: winner, gameViewController: self)
-            return
-        }
-        
-        if counter >= 9 {
-            currentState = GameOverState(winner: nil, gameViewController: self)
-            return
-        }
-        
-        if(gameType == .vsPlayer) {
-            if let playerInputState = currentState as? PlayerState {
-                let player = playerInputState.player.next
-                currentState = PlayerState(player: playerInputState.player.next, gameViewController: self,
-                                           gameBoard: gameBoard, gameBoardView: gameboardView,
-                                           markViewPrototype: player.markViewPrototype)
+        if gameType == .vsPlayer5Moves {
+            if counter <= 1 {
+                if let playerInputState = currentState as? Player5MovesState {
+                    gameboardView.clear()
+                    gameBoard.clear()
+                    
+                    let player = playerInputState.player.next
+                    currentState = Player5MovesState(player: playerInputState.player.next, gameViewController: self,
+                                               gameBoard: gameBoard, gameBoardView: gameboardView,
+                                               markViewPrototype: player.markViewPrototype)
+                }
+            } else {
+                currentState = Player5ExecuteState(winner: nil, gameViewController: self)
             }
         } else {
-            if(counter % 2 == 0) {
-                let player = Player.first
-                currentState = PlayerState(player: player, gameViewController: self,
-                                           gameBoard: gameBoard, gameBoardView: gameboardView,
-                                           markViewPrototype: player.markViewPrototype)
-                
+            if let winner = referee.determineWinner() {
+                currentState = GameOverState(winner: winner, gameViewController: self)
+                return
+            }
+            
+            if counter >= 9 {
+                currentState = GameOverState(winner: nil, gameViewController: self)
+                return
+            }
+            
+            if(gameType == .vsPlayer) {
+                if let playerInputState = currentState as? PlayerState {
+                    let player = playerInputState.player.next
+                    currentState = PlayerState(player: playerInputState.player.next, gameViewController: self,
+                                               gameBoard: gameBoard, gameBoardView: gameboardView,
+                                               markViewPrototype: player.markViewPrototype)
+                }
             } else {
-                let player = Player.second
-                currentState = ComputerState(player: player, gameViewController: self,
-                                                  gameBoard: gameBoard, gameBoardView: gameboardView,
-                                                  markViewPrototype: player.markViewPrototype)
+                if(counter % 2 == 0) {
+                    let player = Player.first
+                    currentState = PlayerState(player: player, gameViewController: self,
+                                               gameBoard: gameBoard, gameBoardView: gameboardView,
+                                               markViewPrototype: player.markViewPrototype)
+                    
+                } else {
+                    let player = Player.second
+                    currentState = ComputerState(player: player, gameViewController: self,
+                                                      gameBoard: gameBoard, gameBoardView: gameboardView,
+                                                      markViewPrototype: player.markViewPrototype)
+                }
             }
         }
         

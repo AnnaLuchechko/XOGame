@@ -9,7 +9,7 @@
 import UIKit
 
 enum GameType {
-    case vsComputer, vsPlayer
+    case vsComputer, vsPlayer, vsPlayer5Moves
 }
 
 class StartViewController: UIViewController {
@@ -24,7 +24,7 @@ class StartViewController: UIViewController {
         
         switch sender.tag {
         case 0:
-            gameViewController.gameType = .vsPlayer
+            gameViewController.gameType = .vsPlayer5Moves
         case 1:
             gameViewController.gameType = .vsComputer
         default:
